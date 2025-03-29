@@ -16,14 +16,29 @@ document.getElementById('check-weather').addEventListener('click', async functio
     }
 });
 
-async function fetchWeather(city) {
-    const url = `https://api.api-ninjas.com/v1/weather?city=${city}`;
+async function fetchWeatherData(country, city, postalCode) {
+    const url = `https://open-weather13.p.rapidapi.com/city/${city}/${country}`;
     const options = {
         method: 'GET',
         headers: {
-            'X-Api-Key': '0affb34ebfmshe4e5ed37735ea66p1000cbjsnbc8517b09c75'
+            'x-rapidapi-key': '0affb34ebfmshe4e5ed37735ea66p1000cbjsnbc8517b09c75',
+            'x-rapidapi-host': 'open-weather13.p.rapidapi.com'
         }
     };
+
+    try {
+        const response = await fetch(url, options);
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || `API request failed with status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null; // Return null to prevent app crash
+    }
 
     const response = await fetch(url, options);
     if (!response.ok) {
