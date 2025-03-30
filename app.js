@@ -18,7 +18,6 @@ document.getElementById('check-weather').addEventListener('click', async functio
 
 // Function to fetch weather data
 async function fetchWeatherData(city) {
-    // Fetch latitude and longitude from some API (this could be done using a geolocation API)
     const geoData = await getCityCoordinates(city);
     if (!geoData) return null;  // No coordinates found
 
@@ -52,16 +51,13 @@ async function fetchWeatherData(city) {
 
 // Function to get city coordinates (latitude and longitude)
 async function getCityCoordinates(city) {
-    // Here you can use a geolocation API to fetch coordinates based on the city name
-    // For this example, we'll hard-code the coordinates for a city
-    // Replace this part with an actual geolocation service or API
     const coordinates = {
         'Berlin': { lat: 52.5244, lon: 13.4105 },
         'London': { lat: 51.5074, lon: -0.1278 },
         'New York': { lat: 40.7128, lon: -74.0060 }
     };
 
-    return coordinates[city] || null;  // Return coordinates for the city, or null if not found
+    return coordinates[city] || null;
 }
 
 // Function to format the weather data for display (showing only temperature)
@@ -69,12 +65,11 @@ function formatWeather(data) {
     // Check if data and data.data exist
     if (!data || !data.data) return '<p>No data available</p>';
 
-    // Log the structure to see what's inside (useful for debugging)
-    console.log("Formatted Weather Data:", data.data);
-
     let weatherInfo = '<h3>Temperature Data</h3>';
+    
+    // Loop through the data and display temperature
     data.data.forEach(month => {
-        // Adjust the way temperature data is accessed depending on the structure of the API response
+        // Check if month.temp exists (may need to adjust based on actual API response structure)
         if (month.temp) {
             weatherInfo += `
                 <p><strong>Month:</strong> ${month.month}</p>
@@ -82,8 +77,10 @@ function formatWeather(data) {
                 <hr />
             `;
         } else {
+            console.log("Month data:", month);  // Log month data to help identify structure issues
             weatherInfo += `<p>Temperature data not available for ${month.month}</p>`;
         }
     });
+
     return weatherInfo;
 }
