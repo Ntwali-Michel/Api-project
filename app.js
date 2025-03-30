@@ -18,20 +18,20 @@ document.getElementById('check-weather').addEventListener('click', async functio
 
 
 async function fetchWeatherData(city) {
-
+    
     const geoData = await getCityCoordinates(city);
-    if (!geoData) return null; 
+    if (!geoData) return null;  
 
     const { lat, lon } = geoData;
     const alt = 0;  
     const startDate = '2020-01-01';  
-    const endDate = '2020-12-31';   
+    const endDate = '2020-12-31';    
 
     const url = `https://meteostat.p.rapidapi.com/point/monthly?lat=${lat}&lon=${lon}&alt=${alt}&start=${startDate}&end=${endDate}`;
     const options = {
         method: 'GET',
         headers: {
-            'x-rapidapi-key': '416a25a3a3mshbbe9a5565153fd1p1ee0c0jsnb9b2b47a3db1',  
+            'x-rapidapi-key': '416a25a3a3mshbbe9a5565153fd1p1ee0c0jsnb9b2b47a3db1',
             'x-rapidapi-host': 'meteostat.p.rapidapi.com'
         }
     };
@@ -53,7 +53,7 @@ async function fetchWeatherData(city) {
 
 async function getCityCoordinates(city) {
     
-
+    
     
     const coordinates = {
         'Berlin': { lat: 52.5244, lon: 13.4105 },
@@ -69,13 +69,11 @@ function formatWeather(data) {
     
     if (!data || !data.data) return '<p>No data available</p>';
 
-    let weatherInfo = '<h3>Monthly Weather Data</h3>';
+    let weatherInfo = '<h3>Temperature Data</h3>';
     data.data.forEach(month => {
         weatherInfo += `
             <p><strong>Month:</strong> ${month.month}</p>
             <p><strong>Temperature:</strong> ${month.temp}°C</p>
-            <p><strong>Precipitation:</strong> ${month.prcp} mm</p>
-            <p><strong>Wind Speed:</strong> ${month.wspd} km/h</p>
             <hr />
         `;
     });
