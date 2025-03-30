@@ -5,7 +5,7 @@ document.getElementById('check-weather').addEventListener('click', async functio
     resultBox.innerHTML = 'Fetching weather data...';
 
     try {
-        const responseData = await fetchWeatherData(country, city);
+        const responseData = await fetchWeatherData(city, country);
         if (responseData) {
             resultBox.innerHTML = formatWeather(responseData);
         } else {
@@ -17,23 +17,17 @@ document.getElementById('check-weather').addEventListener('click', async functio
     }
 });
 
-async function fetchWeatherData(country, city) {
-    const url = `https://open-weather13.p.rapidapi.com/city/${city}/${country}`;
-    const options = {
-        method: 'GET',
-        headers: {
-            'x-rapidapi-key': '0affb34ebfmshe4e5ed37735ea66p1000cbjsnbc8517b09c75',
-            'x-rapidapi-host': 'open-weather13.p.rapidapi.com'
-        }
-    };
+async function fetchWeatherData(city, country) {
+    const apiKey = '416a25a3a3mshbbe9a5565153fd1p1ee0c0jsnb9b2b47a3db1'; 
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric`; // Using metric for Celsius
 
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(url);
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || `API request failed with status: ${response.status}`);
+            throw new Error('Weather data fetch failed');
         }
-        return await response.json();
+        const data = await response.json();
+        return data;
     } catch (error) {
         console.error("Error fetching data:", error);
         return null;
@@ -41,10 +35,12 @@ async function fetchWeatherData(country, city) {
 }
 
 function formatWeather(data) {
+    if (!data) return '<p>No data available</p>';
+
     return `
-        <p><strong>City:</strong> ${data.city || 'N/A'}</p>
-        <p><strong>Temperature:</strong> ${data.temp}°C</p>
-        <p><strong>Humidity:</strong> ${data.humidity}%</p>
-        <p><strong>Wind Speed:</strong> ${data.wind_speed} m/s</p>
+        <p><strong>City:</strong> ${data.name || 'N/A'}</p>
+        <p><strong>Temperature:</strong> ${data.main.temp}°C</p>
+        <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
+        <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
     `;
 }
