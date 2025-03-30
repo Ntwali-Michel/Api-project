@@ -1,21 +1,15 @@
 document.getElementById('check-weather').addEventListener('click', async function () {
-    const city = document.getElementById('city').value.trim(); // Trim spaces
-    const country = "US"; // Change this to user input or default to a country
+    const city = document.getElementById('city').value;
     const resultBox = document.getElementById('result');
-
-    if (!city) {
-        resultBox.innerHTML = '<p style="color: red;">Please enter a valid city name.</p>';
-        return;
-    }
-
     resultBox.innerHTML = 'Fetching weather data...';
 
     try {
-        const responseData = await fetchWeatherData(city, country);
-        if (responseData && responseData.main) {
+        // Corrected function call
+        const responseData = await fetchWeatherData(city);
+        if (responseData) {
             resultBox.innerHTML = formatWeather(responseData);
         } else {
-            resultBox.innerHTML = '<p style="color: red;">Weather data not available. Check city and try again.</p>';
+            resultBox.innerHTML = '<p>No weather information available.</p>';
         }
     } catch (error) {
         resultBox.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
@@ -23,8 +17,8 @@ document.getElementById('check-weather').addEventListener('click', async functio
     }
 });
 
-async function fetchWeatherData(city, country) {
-    const url = `https://open-weather13.p.rapidapi.com/city/${city}/${country}`;
+async function fetchWeatherData(city) {
+    const url = `https://open-weather13.p.rapidapi.com/city/${city}`;
     const options = {
         method: 'GET',
         headers: {
@@ -48,9 +42,9 @@ async function fetchWeatherData(city, country) {
 
 function formatWeather(data) {
     return `
-        <p><strong>City:</strong> ${data.name || 'N/A'}</p>
-        <p><strong>Temperature:</strong> ${data.main.temp}°C</p>
-        <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
-        <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
+        <p><strong>City:</strong> ${data.city || 'N/A'}</p>
+        <p><strong>Temperature:</strong> ${data.temp}°C</p>
+        <p><strong>Humidity:</strong> ${data.humidity}%</p>
+        <p><strong>Wind Speed:</strong> ${data.wind_speed} m/s</p>
     `;
 }
