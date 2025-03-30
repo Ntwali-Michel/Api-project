@@ -22,7 +22,7 @@ async function fetchWeatherData(country, city) {
     const options = {
         method: 'GET',
         headers: {
-            'x-rapidapi-key': 'YOUR_NEW_API_KEY', // Replace with your new API key
+            'x-rapidapi-key': '0affb34ebfmshe4e5ed37735ea66p1000cbjsnbc8517b09c75',
             'x-rapidapi-host': 'open-weather13.p.rapidapi.com'
         }
     };
