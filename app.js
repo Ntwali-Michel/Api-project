@@ -19,14 +19,17 @@ document.getElementById('check-weather').addEventListener('click', async functio
 
 async function fetchWeatherData(city, country) {
     const apiKey = '416a25a3a3mshbbe9a5565153fd1p1ee0c0jsnb9b2b47a3db1'; 
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric`; // Using metric for Celsius
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric`;
 
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error('Weather data fetch failed');
+            const errorData = await response.json();
+            console.error('API Error:', errorData);  
+            throw new Error(errorData.message || 'Weather data fetch failed');
         }
         const data = await response.json();
+        console.log('Weather Data:', data);  
         return data;
     } catch (error) {
         console.error("Error fetching data:", error);
