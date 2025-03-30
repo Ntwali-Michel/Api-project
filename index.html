@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Weather App</title>
     <link rel="stylesheet" type="text/css" href="app.css">
 </head>
@@ -8,7 +10,22 @@
     <div class="wrapper">
         <h1>Weather Checker</h1>
         <div class="input-container">
-            <input type="text" id="city" placeholder="Enter City">
+            <label for="country">Select Country:</label>
+            <select id="country">
+                <option value="EN">England</option>
+                <option value="US">United States</option>
+                <option value="IN">India</option>
+                <!-- Add more countries here -->
+            </select>
+
+            <label for="city">Select City:</label>
+            <select id="city">
+                <option value="London">London</option>
+                <option value="New York">New York</option>
+                <option value="Mumbai">Mumbai</option>
+                <!-- Add more cities here -->
+            </select>
+
             <button id="check-weather">Get Weather</button>
         </div>
         <div id="result"></div>

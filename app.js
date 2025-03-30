@@ -1,11 +1,11 @@
 document.getElementById('check-weather').addEventListener('click', async function () {
     const city = document.getElementById('city').value;
+    const country = document.getElementById('country').value;
     const resultBox = document.getElementById('result');
     resultBox.innerHTML = 'Fetching weather data...';
 
     try {
-        // Corrected function call
-        const responseData = await fetchWeatherData(city);
+        const responseData = await fetchWeatherData(country, city);
         if (responseData) {
             resultBox.innerHTML = formatWeather(responseData);
         } else {
@@ -17,12 +17,12 @@ document.getElementById('check-weather').addEventListener('click', async functio
     }
 });
 
-async function fetchWeatherData(city) {
-    const url = `https://open-weather13.p.rapidapi.com/city/${city}`;
+async function fetchWeatherData(country, city) {
+    const url = `https://open-weather13.p.rapidapi.com/city/${city}/${country}`;
     const options = {
         method: 'GET',
         headers: {
-            'x-rapidapi-key': '0affb34ebfmshe4e5ed37735ea66p1000cbjsnbc8517b09c75', 
+            'x-rapidapi-key': 'YOUR_NEW_API_KEY', // Replace with your new API key
             'x-rapidapi-host': 'open-weather13.p.rapidapi.com'
         }
     };
