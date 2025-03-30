@@ -1,43 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Checker</title>
-    <link rel="stylesheet" type="text/css" href="app.css">
+  <meta charset="UTF-8">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="wrapper">
-        <h1>Weather Checker</h1>
-        <div class="input-container">
-            <label for="country">Select Country:</label>
-            <select id="country">
-                <option value="US">United States</option>
-                <option value="IN">India</option>
-                <option value="GB">United Kingdom</option>
-                <option value="CA">Canada</option>
-                <option value="AU">Australia</option>
-                <option value="NG">Nigeria</option>
-                <option value="UG">Uganda</option>
-                <!-- Add more countries here -->
-            </select>
-
-            <label for="city">Select City:</label>
-            <select id="city">
-                <option value="New York">New York</option>
-                <option value="Mumbai">Mumbai</option>
-                <option value="London">London</option>
-                <option value="Sydney">Sydney</option>
-                <option value="Toronto">Toronto</option>
-                <option value="Lagos">Lagos</option>
-                <option value="Kampala">Kampala</option>
-                <!-- Add more cities here -->
-            </select>
-
-            <button id="check-weather">Get Weather</button>
-        </div>
-        <div id="result"></div>
-    </div>
-    <script src="app.js"></script>
+  <h1>Weather App</h1>
+  <div class="weather-container">
+    <input type="text" id="cityInput" placeholder="Enter city name">
+    <button id="getWeatherBtn">Get Weather</button>
+  </div>
+  <div id="weatherResult"></div>
+  
+  <script src="script.js"></script>
 </body>
 </html>
